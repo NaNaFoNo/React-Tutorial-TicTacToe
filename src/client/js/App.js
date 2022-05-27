@@ -63,7 +63,41 @@ class Board extends React.Component {
     );
   }
 
+  renderCol(cols, row) {
+    const col = []
+    for (let i=0; i<cols; i++)
+      {
+        col.push(this.renderSquare(row * 3 + i))
+      }      
+    return col;
+  }
+
+  renderRow(cols, row) {
+    return (
+      <div key={row} className="board-row">
+        {this.renderCol(cols, row)}
+      </div>
+    );
+  }
+
+  renderBoard(cols, rows) {
+    const board = [];
+    for (let i=0; i<rows; i++)
+      {
+        board.push(this.renderRow(cols, i));
+      }
+    return board;
+  }
+
   render() {
+    return (
+      <div>
+        { this.renderBoard(3,3)}
+      </div>
+    )
+  }
+
+  /* render() {
     return (
       <div>
         <div className="board-row">
@@ -83,7 +117,7 @@ class Board extends React.Component {
         </div>
       </div>
     );
-  }
+  } */
 }
   
 
