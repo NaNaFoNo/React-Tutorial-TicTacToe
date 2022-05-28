@@ -133,7 +133,8 @@ class Game extends React.Component {
       pos: [{
         col: null,
         row: null
-      }]
+      }],
+      historyOrder: true
     };
   }
 
@@ -170,11 +171,18 @@ class Game extends React.Component {
     });
   }
 
+  changeOrderClick(){
+    this.setState({
+      historyOrder: !this.state.historyOrder
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const win = calculateWinner(current.squares);
     const pos = this.state.pos;
+    const historyOrder = this.state.historyOrder;
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -220,7 +228,9 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          
+          <ol>{historyOrder ? moves : moves.reverse()}</ol>
+          <button onClick={() => this.changeOrderClick()}>Toggle Order Asc/Desc</button>
         </div>
       </div>
     );
