@@ -1,19 +1,8 @@
 import React from 'react';
 
-/* class Square extends React.Component {  
-  render() {
-      return (
-        <button 
-          className="square" 
-          onClick={() => this.props.onClick()}
-        >
-          {this.props.value}
-        </button>
-      );
-    }
-} */
 
 function Square(props) {
+  // show winning three marks
   if (props.win){
     return (
       <button 
@@ -37,22 +26,8 @@ function Square(props) {
   
 }
 
+
 class Board extends React.Component {
-  /* constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  } */
-  /* handleClick(i) {
-    const squares = this.state.squares.slice();
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-       squares: squares,
-       xIsNext: !this.state.xIsNext,
-    });
-  } */
   renderSquare(i) {
     return (
       <Square 
@@ -95,31 +70,9 @@ class Board extends React.Component {
         { this.renderBoard(3,3)}
       </div>
     )
-  }
-
-  /* render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  } */
+  } 
 }
-  
+
 
 class Game extends React.Component {
   constructor(props) {
@@ -134,7 +87,7 @@ class Game extends React.Component {
         col: null,
         row: null
       }],
-      historyOrder: true
+      orderDesc: true
     };
   }
 
@@ -173,7 +126,7 @@ class Game extends React.Component {
 
   changeOrderClick(){
     this.setState({
-      historyOrder: !this.state.historyOrder
+      orderDesc: !this.state.orderDesc
     });
   }
 
@@ -182,7 +135,7 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const win = calculateWinner(current.squares);
     const pos = this.state.pos;
-    const historyOrder = this.state.historyOrder;
+    const historyOrder = this.state.orderDesc;
 
     const moves = history.map((step, move) => {
       const desc = move ?
